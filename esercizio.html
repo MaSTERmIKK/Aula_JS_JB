@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Esempio con HTML, CSS e JavaScript</title>
+  <style>
+    /* Impostiamo lo sfondo blu per la pagina */
+    body {
+      background-color: blue;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Aggiunta #1: Stiliamo il pulsante */
+    button {
+      background-color: #ff9800;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* Aggiunta #2: Effetto hover sul pulsante */
+    button:hover {
+      background-color: #e65100;
+    }
+  </style>
+  
+</head>
+<body>
+
+  <button onclick="stampaNome()">Clicca per stampare il nome</button>
+
+  <button onclick="stampaNome2()">Ciao sono un nuovo bottone</button>
+
+  <h1></h1>
+  
+
+
+  <!--    Funzioni    -->
+  <script>
+    function stampaNome() {
+      alert("Mirko Campari");
+    }
+
+    function stampaNome2() {
+      alert("Ancora Mirko Campari");
+    }
+  </script>
+  
+
+</body>
+</html>
