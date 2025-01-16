@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Esempio con più funzioni JS e stili CSS</title>
+  <style>
+    /* Impostiamo un colore di sfondo sfumato per la pagina */
+    body {
+      background: linear-gradient(to right, #3f51b5, #2196f3);
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Creiamo un contenitore centrale con un po' di distanza dal bordo */
+    .container {
+      margin: 50px auto;
+      max-width: 600px;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Stiliamo il titolo e i paragrafi */
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    p {
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    /* Stiliamo i pulsanti */
+    button {
+      background-color: #ff9800;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+
+    button:hover {
+      background-color: #e65100;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Più Funzioni in JavaScript</h1>
+    <p>Clicca sui pulsanti per eseguire diverse azioni JavaScript.</p>
+    
+    <!-- Pulsanti che richiamano funzioni diverse -->
+    <button onclick="salutaUtente()">Saluta Utente</button>
+    <button onclick="mostraDataCorrente()">Data di oggi</button>
+    <button onclick="cambiaColoreSfondo()">Cambia Sfondo Container</button>
+  </div>
+
+  <div class="container">
+
+    <button onclick="Nominatore()">Inserisci il tuo nome</button>
+
+
+    <div id="pippo">Qui apparirà il tuo nome.</div>
+
+
+  </div>
+
+  <script>
+
+    function Nominatore(){
+        let nomeUT = prompt( "Inserisci il tuo nome" );
+        console.log(nomeUT);
+
+        document.getElementById("pippo").textContent = nomeUT ? nomeUT : "Nessun nome inserito";
+    }
+
+    // Funzione 1: Visualizza un messaggio di benvenuto tramite alert
+    function salutaUtente() {
+      alert("Ciao! Benvenuto nella nostra pagina interattiva.");
+    }
+
+    // Funzione 2: Mostra in un alert la data corrente formattata
+    function mostraDataCorrente() {
+      const oggi = new Date();
+      const opzioni = { day: 'numeric', month: 'long', year: 'numeric' };
+      const dataFormattata = oggi.toLocaleDateString('it-IT', opzioni);
+      alert("Oggi è " + dataFormattata);
+    }
+
+    // Funzione 3: Cambia lo sfondo del contenitore selezionandolo con JavaScript
+    function cambiaColoreSfondo() {
+      const container = document.querySelector('.container');
+      // Scegliamo un colore casuale in formato esadecimale
+      const coloreCasuale = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      container.style.backgroundColor = coloreCasuale;
+    }
+
+
+  </script>
+
+</body>
+</html>
