@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Esempio Ciclo JavaScript</title>
+  <style>
+    /* Impostiamo alcune regole di base per l’aspetto della pagina */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* Contenitore centrale con stile */
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    /* Stile del pulsante */
+    button {
+      background-color: #2196f3;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #1976d2;
+    }
+
+    /* Contenitore dei risultati */
+    #output {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #555;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Esempio di Ciclo in JavaScript</h1>
+    <p>Clicca sul pulsante e inserisci un numero per generare un elenco di valori da 1 fino al numero digitato.</p>
+
+    <!-- Pulsante che avvia la funzione generaElenco() -->
+    <button onclick="generaElenco()">Genera Elenco</button>
+
+    <!-- Sezione dove verrà mostrato l'elenco generato -->
+    <div id="output"></div>
+  </div>
+
+  <script>
+    /**
+     * Funzione che chiede all’utente un numero.
+     * Usa un ciclo for per generare l’elenco di numeri da 1 a quello inserito.
+     * Infine, mostra il risultato nella pagina.
+     */
+    function generaElenco() {
+      // Chiediamo all’utente di inserire un numero intero
+      let input = prompt("Inserisci un numero intero maggiore di 0:");
+      
+      // Convertiamo l'input (stringa) in numero
+      let numero = parseInt(input);
+      
+      // Verifichiamo che sia un numero valido (>0)
+      if (isNaN(numero) || numero <= 0) {
+        alert("Valore non valido. Inserisci un numero intero maggiore di 0.");
+        return; // Uscita anticipata dalla funzione se il dato non è corretto
+      }
+      
+      // Variabile per accumulare il codice HTML da mostrare nel div "output"
+      let risultato = "<ul>";
+      
+      // Ciclo for da 1 fino al numero inserito
+      for (let i = 1; i <= numero; i++) {
+        risultato += "<li>" + i + "</li>";
+      }
+      
+      // Chiudiamo il tag ul
+      risultato += "</ul>";
+      
+      // Inseriamo la lista generata nel div con id "output"
+      document.getElementById("output").innerHTML = risultato;
+    }
+  </script>
+
+</body>
+</html>

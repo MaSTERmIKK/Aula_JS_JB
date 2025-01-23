@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Esempio Condizioni JavaScript</title>
+  <style>
+    /* Impostiamo alcune regole di base per la pagina */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* Contenitore principale per centrare il contenuto */
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    /* Stile del pulsante */
+    button {
+      background-color: #2196f3;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #1976d2;
+    }
+
+    /* Stile del messaggio di output */
+    #output {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Esempio di Condizione JavaScript</h1>
+    <p>Clicca il pulsante e inserisci "ciao" per vedere la scritta speciale.</p>
+
+    <!-- Pulsante che richiama la funzione mostraMessaggio -->
+    <button onclick="mostraMessaggio()">Prova!</button>
+
+    <!-- Div dove apparirà il messaggio di output -->
+    <div id="output"></div>
+  </div>
+
+  <script>
+    /**
+     * Funzione che chiede all'utente di inserire una parola.
+     * Se la parola inserita è "ciao", mostriamo un messaggio specifico.
+     * Altrimenti, mostriamo un messaggio diverso.
+     */
+    function mostraMessaggio() {
+      // Prompt per richiedere una parola all'utente
+      const parola = prompt("Inserisci una parola (ad esempio: ciao)");
+
+
+
+      // Se l'utente preme 'Annulla' nel prompt, parola sarà null
+      // gestiamo quindi anche il caso in cui non venga digitato nulla
+      if (parola === "ciao") {
+        // Condizione vera: l'utente ha scritto "ciao"
+        document.getElementById("output").textContent = "Hai scritto proprio 'ciao'!";
+      } else if ( parola === "mirko") {  
+
+        document.getElementById("output").textContent = "Hai scritto proprio 'Mirko'!";
+      } else {
+        // Condizione falsa: l'utente ha scritto qualcos'altro (o ha premuto Annulla)
+        document.getElementById("output").textContent = "Non hai scritto 'ciao'.";
+      }
+    }
+
+
+    function op_Mat() {
+      // Chiedi i numeri all'utente
+      var numero1 = parseInt(prompt("Inserisci numero 1"), 10);
+      var numero2 = parseInt(prompt("Inserisci numero 2"), 10);
+
+      // Controlla se l'input è valido
+      if (isNaN(numero1) || isNaN(numero2)) {
+        alert("Inserisci valori numerici validi!");
+        return;
+      }
+
+
+      // Operazioni matematiche
+      window.alert("Somma: " + (numero1 + numero2));
+      console.log("Sottrazione: " + (numero1 - numero2));
+      alert("Moltiplicazione: " + (numero1 * numero2));
+      window.alert("Divisione: " + (numero1 / numero2));
+      window.alert("Modulo: " + (numero1 % numero2));
+    }
+
+    function op_DiConfronto() {
+      // Chiedi i numeri all'utente
+      var numero1 = parseInt(prompt("Inserisci numero 1"), 10);
+      var numero2 = parseInt(prompt("Inserisci numero 2"), 10);
+
+      // Controlla se l'input è valido
+      if (isNaN(numero1) || isNaN(numero2)) {
+        alert("Inserisci valori numerici validi!");
+        return;
+      }
+
+
+      // Operazioni matematiche
+      window.alert("Somma: " + (numero1 + numero2));
+      console.log("Sottrazione: " + (numero1 - numero2));
+      alert("Moltiplicazione: " + (numero1 * numero2));
+      window.alert("Divisione: " + (numero1 / numero2));
+      window.alert("Modulo: " + (numero1 % numero2));
+    }
+
+
+  </script>
+
+</body>
+
+</html>
