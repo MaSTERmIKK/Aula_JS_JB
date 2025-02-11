@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genera JSON</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Genera un file JSON</h2>
+    <input type="text" id="nomeInput" placeholder="Inserisci il nome">
+    <button onclick="generaJSON()">Salva JSON</button>
+
+    <script>
+        function generaJSON() {
+            const nome = document.getElementById("nomeInput").value.trim();
+
+            if (nome === "") {
+                alert("Inserisci un nome valido!");
+                return;
+            }
+
+            // Creiamo l'oggetto JSON
+            const dati = {
+                nome: nome,
+                timestamp: new Date().toISOString()
+            };
+
+            // Convertiamo l'oggetto in stringa JSON
+            const jsonString = JSON.stringify(dati, null, 2);
+
+            // Creiamo un blob per il download
+            const blob = new Blob([jsonString], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+
+            // Creiamo un link per scaricare il file
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "dati.json"; // Nome del file
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Rilasciamo l'URL oggetto
+            URL.revokeObjectURL(url);
+        }
+    </script>
+
+</body>
+</html>
