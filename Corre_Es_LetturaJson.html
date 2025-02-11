@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leggi JSON</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            display: block;
+            width: 250px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Carica e Leggi un file JSON</h2>
+    <input type="file" id="fileInput" accept=".json">
+    <div id="output">I dati appariranno qui...</div>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+
+            if (!file) {
+                alert("Seleziona un file JSON valido!");
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                try {
+                    const jsonData = JSON.parse(event.target.result);
+                    stampaDati(jsonData);
+                } catch (error) {
+                    alert("Errore nel file JSON: " + error.message);
+                }
+            };
+
+            reader.readAsText(file);
+        });
+
+        function stampaDati(data) {
+            const outputDiv = document.getElementById("output");
+            outputDiv.innerHTML = `
+                <strong>Nome:</strong> ${data.nome || "N/A"}<br>
+                <strong>Cognome:</strong> ${data.cognome || "N/A"}<br>
+                <strong>Password:</strong> ${data.password || "N/A"}<br>
+                <strong>Timestamp:</strong> ${data.timestamp || "N/A"}
+            `;
+        }
+    </script>
+
+</body>
+</html>
