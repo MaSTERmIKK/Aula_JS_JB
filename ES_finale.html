@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Serializza e Modifica JSON</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f0f0f0;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1, h2, h3 {
+      text-align: center;
+      color: #333;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #28a745;
+      color: white;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Serializza e Modifica JSON</h1>
+    
+    <!-- Sezione per serializzazione JSON -->
+    <div class="section" id="serializer">
+      <h2>Serializzazione JSON</h2>
+      
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" placeholder="Inserisci il nome">
+      
+      <label for="cognome">Cognome:</label>
+      <input type="text" id="cognome" placeholder="Inserisci il cognome">
+      
+      <label for="eta">Età:</label>
+      <input type="number" id="eta" placeholder="Inserisci l'età">
+      
+      <button id="serializeBtn">Serializza</button>
+      
+      <h3>JSON Serializzato:</h3>
+      <textarea id="serializedJson" rows="5" readonly></textarea>
+      <button id="downloadJsonBtn">Scarica JSON</button>
+    </div>
+    
+    <!-- Sezione per leggere e modificare file JSON -->
+    <div class="section" id="fileReaderSection">
+      <h2>Modifica File JSON</h2>
+      
+      <input type="file" id="jsonFileInput" accept=".json">
+      
+      <label for="fileJsonContent">Contenuto JSON:</label>
+      <textarea id="fileJsonContent" rows="10" placeholder="Il contenuto del file JSON apparirà qui..."></textarea>
+      
+      <button id="updateJsonBtn">Aggiorna JSON</button>
+      <button id="downloadUpdatedJsonBtn">Scarica JSON Modificato</button>
+    </div>
+  </div>
+  
+  <script>
+    // Serializzazione JSON
+    const serializeBtn = document.getElementById('serializeBtn');
+    const downloadJsonBtn = document.getElementById('downloadJsonBtn');
+    const nomeInput = document.getElementById('nome');
+    const cognomeInput = document.getElementById('cognome');
+    const etaInput = document.getElementById('eta');
+    const serializedJsonTextarea = document.getElementById('serializedJson');
+    
+    serializeBtn.addEventListener('click', () => {
+      const nome = nomeInput.value.trim();
+      const cognome = cognomeInput.value.trim();
+      const eta = etaInput.value.trim();
+      
+      if (!nome || !cognome || !eta) {
+        alert("Per favore, completa tutti i campi.");
+        return;
+      }
+      
+      const jsonData = {
+        nome: nome,
+        cognome: cognome,
+        eta: Number(eta)
+      };
+      
+      const jsonString = JSON.stringify(jsonData, null, 2);
+      serializedJsonTextarea.value = jsonString;
+    });
+    
+    downloadJsonBtn.addEventListener('click', () => {
+      const jsonContent = serializedJsonTextarea.value;
+      if (!jsonContent) {
+        alert("Nessun JSON da scaricare. Serializza prima i dati.");
+        return;
+      }
+      
+      const blob = new Blob([jsonContent], {type: "application/json"});
+      const url = URL.createObjectURL(blob);
+      
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "dati.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+    
+    // File Reader per JSON
+    const jsonFileInput = document.getElementById('jsonFileInput');
+    const fileJsonContentTextarea = document.getElementById('fileJsonContent');
+    const updateJsonBtn = document.getElementById('updateJsonBtn');
+    const downloadUpdatedJsonBtn = document.getElementById('downloadUpdatedJsonBtn');
+    
+    jsonFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        try {
+          // Prova a fare il parsing per verificare la validità del JSON
+          const parsed = JSON.parse(event.target.result);
+          // Se valido, formatta e mostra il JSON
+          fileJsonContentTextarea.value = JSON.stringify(parsed, null, 2);
+        } catch (error) {
+          alert("Il file selezionato non contiene un JSON valido.");
+        }
+      };
+      reader.readAsText(file);
+    });
+    
+    updateJsonBtn.addEventListener('click', () => {
+      const updatedContent = fileJsonContentTextarea.value;
+      try {
+        const parsed = JSON.parse(updatedContent);
+        // Riformatta il JSON
+        fileJsonContentTextarea.value = JSON.stringify(parsed, null, 2);
+        alert("JSON aggiornato correttamente!");
+      } catch (error) {
+        alert("Errore nel parsing del JSON. Verifica il formato.");
+      }
+    });
+    
+    downloadUpdatedJsonBtn.addEventListener('click', () => {
+      const updatedContent = fileJsonContentTextarea.value;
+      try {
+        const parsed = JSON.parse(updatedContent); // Validazione del JSON
+        const blob = new Blob([JSON.stringify(parsed, null, 2)], {type: "application/json"});
+        const url = URL.createObjectURL(blob);
+      
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "modificato.json";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (error) {
+        alert("Il contenuto non è un JSON valido. Non si può scaricare.");
+      }
+    });
+  </script>
+</body>
+</html>
